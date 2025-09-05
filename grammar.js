@@ -104,16 +104,16 @@ module.exports = grammar({
 			$.collection,
 			$.indexed_collection,
 			$.partial,
-			$.duplicated_statement,
+			// $.duplicated_statement,
 		),
 
 		partial: $ => prec.right(PRECEDENCE.partial, "_"),
 
-		duplicated_statement: $ => prec.left(PRECEDENCE.duplication, seq(
-            field("duplicated_object", $._object),
-            field("operator","!"),
-            field("duplication_times", $._object)
-        )),
+	// 	duplicated_statement: $ => prec.left(PRECEDENCE.duplication, seq(
+        //     field("duplicated_object", $._object),
+        //     field("operator","!"),
+        //     field("duplication_times", $._object)
+        // )),
 
 		/////////////////
 		//  Functions  //
@@ -601,7 +601,9 @@ module.exports = grammar({
 		// 	field('right', $._object)
 		// ))),
 		binary_expression: $ => {
-			const table = [
+		    const table = [
+				// Add duplication as a binary operator with proper precedence
+				[PRECEDENCE.duplication, '!'],
 
 				// "Selector as binary operator"
 				// @TODO
